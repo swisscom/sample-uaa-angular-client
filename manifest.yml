@@ -1,0 +1,13 @@
+---
+applications:
+  - name: sample-uaa-angular-client
+    env:
+      SERVER_URL: <resource server URL>
+    memory: 64MB
+    buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+    command: $HOME/public/start.sh
+    path: dist
+    routes:
+      - route: <provide a route for your app>
+    services:
+      - oauth2
