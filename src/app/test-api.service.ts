@@ -5,9 +5,9 @@ import {
   HttpErrorResponse,
   HttpResponse
 } from '@angular/common/http';
-import { Constants } from '../constants';
 import { Observable } from 'rxjs';
 import { AppAuthNService, User } from './app-auth-n.service';
+import { AppConfig } from './app.config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ import { AppAuthNService, User } from './app-auth-n.service';
 export class TestApiService {
   constructor(
     private _httpClient: HttpClient,
-    private _authn: AppAuthNService
+    private _authn: AppAuthNService,
+    private _config: AppConfig
   ) {}
 
   public callApi(): Promise<any> {
@@ -39,7 +40,7 @@ export class TestApiService {
     });
 
     return this._httpClient
-      .get(Constants.apiRoot + 'test', { headers: headers })
+      .get(this._config.getConfig('serverUrl') + '/env', { headers: headers })
       .toPromise()
       .catch((result: HttpErrorResponse) => {
         if (result.status === 401) {

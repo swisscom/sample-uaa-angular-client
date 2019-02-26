@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
-import { Constants } from '../constants';
 import { DOCUMENT } from '@angular/platform-browser';
 import { AppConfig } from './app.config';
 
