@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { Constants } from '../constants';
+import { DOCUMENT } from '@angular/platform-browser';
+import { AppConfig } from './app.config';
 
 export { User };
 
@@ -10,15 +12,19 @@ export { User };
 export class AppAuthNService {
   _userManager: UserManager;
 
-  constructor() {
+  constructor(@Inject(DOCUMENT) private document, private config: AppConfig) {
+    const protocol = document.location.protocol;
+    const hostname = document.location.hostname;
+    const port = document.location.port ? ':' + document.location.port : '';
+    const auth = config.getConfig('oidc').authorizationEndpoint;
     const settings = {
-      authority: Constants.stsAuthority,
-      client_id: Constants.clientId,
-      redirect_uri: `${Constants.clientRoot}assets/signin-callback.html`,
-      silent_redirect_uri: `${Constants.clientRoot}assets/silent-callback.html`,
-      post_logout_redirect_uri: `${Constants.clientRoot}`,
-      response_type: 'id_token token',
-      scope: Constants.clientScope
+      authority: auth.substr(0, auth.indexOf('/oauth')),
+      client_id: config.getConfig('oidc').clientId,
+      redirect_uri: `${protocol}//${hostname}${port}/assets/signin-callback.html`,
+      silent_redirect_uri: `${protocol}//${hostname}${port}/assets/silent-callback.html`,
+      post_logout_redirect_uri: `${protocol}//${hostname}${port}`,
+      response_type: 'token',
+      scope: 'openid roles'
     };
     this._userManager = new UserManager(settings);
   }
