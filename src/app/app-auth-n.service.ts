@@ -8,11 +8,10 @@ export { User };
   providedIn: 'root'
 })
 export class AppAuthNService {
-
   _userManager: UserManager;
 
   constructor() {
-    var settings = {
+    const settings = {
       authority: Constants.stsAuthority,
       client_id: Constants.clientId,
       redirect_uri: `${Constants.clientRoot}assets/signin-callback.html`,

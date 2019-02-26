@@ -8,26 +8,30 @@ import { TestApiService } from './test-api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(public authn: AppAuthNService, public apiService: TestApiService) {
-  }
+  constructor(
+    public authn: AppAuthNService,
+    public apiService: TestApiService
+  ) {}
 
   messages: string[] = [];
-  get currentUserJson() : string {
+  get currentUserJson(): string {
     return JSON.stringify(this.currentUser, null, 2);
   }
-  currentUser : User;
+  currentUser: User;
 
   ngOnInit(): void {
-    this.authn.getUser().then(user => {
-      this.currentUser = user;
+    this.authn
+      .getUser()
+      .then(user => {
+        this.currentUser = user;
 
-      if (user){
-        this.addMessage("User Logged In");
-      }
-      else {
-        this.addMessage("User Not Logged In");
-      }
-    }).catch(err => this.addError(err));
+        if (user) {
+          this.addMessage('User Logged In');
+        } else {
+          this.addMessage('User Not Logged In');
+        }
+      })
+      .catch(err => this.addError(err));
   }
 
   clearMessages() {
@@ -39,7 +43,7 @@ export class AppComponent implements OnInit {
     this.messages.push(msg);
   }
   addError(msg: string | any) {
-    this.messages.push("Error: " + msg && msg.message);
+    this.messages.push('Error: ' + msg && msg.message);
   }
 
   public onLogin() {
@@ -51,17 +55,21 @@ export class AppComponent implements OnInit {
 
   public onCallAPI() {
     this.clearMessages();
-    this.apiService.callApi().then(result => {
-      this.addMessage("API Result: " + JSON.stringify(result));
-    }, err => this.addError(err));
+    this.apiService.callApi().then(
+      result => {
+        this.addMessage('API Result: ' + JSON.stringify(result));
+      },
+      err => this.addError(err)
+    );
   }
 
   public onRenewToken() {
     this.clearMessages();
-    this.authn.renewToken()
-      .then(user=>{
+    this.authn
+      .renewToken()
+      .then(user => {
         this.currentUser = user;
-        this.addMessage("Silent Renew Success");
+        this.addMessage('Silent Renew Success');
       })
       .catch(err => this.addError(err));
   }
