@@ -62,20 +62,4 @@ export class AppComponent implements OnInit {
       err => this.addError(err)
     );
   }
-
-  public onRenewToken() {
-    this.clearMessages();
-    this.authn
-      .renewToken()
-      .then(user => {
-        this.currentUser = user;
-        this.addMessage('Silent Renew Success');
-      })
-      .catch(err => this.addError(err));
-  }
-
-  public onLogout() {
-    this.clearMessages();
-    this.authn.logout().catch(err => this.addError(err));
-  }
 }
