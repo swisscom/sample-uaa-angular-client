@@ -25,11 +25,10 @@ Adapt the `manifest.yml` to include the route which you want to assign to your a
 ```
 ---
 applications:
-  - name: sample-uaa-react-redux-client
+  - name: sample-uaa-angular-client
     env:
       SERVER_URL: <resource server URL>
     memory: 64MB
-    buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
     command: $HOME/public/start.sh
     path: dist
     routes:
