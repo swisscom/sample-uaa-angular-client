@@ -8,7 +8,7 @@ Here's how you can run the example app in your own space.
 
 ### Set up a resource server
 
-To run this sample, you need to first set up a resource server, i.e. an API to which your React app will connect once it has the auth token. To achieve this you can either deploy the [Spring Boot sample](https://github.com/swisscom/sample-uaa-spring-boot-service-provider) or the [Ruby sample](https://github.com/swisscom/sample-uaa-ruby-service-provider). We will refer to the URL under which this resource server is running as `<resource server URL>`.
+To run this sample, you need to first set up a resource server, i.e. an API to which your Angular app will connect once it has the auth token. To achieve this you can either deploy the [Spring Boot sample](https://github.com/swisscom/sample-uaa-spring-boot-service-provider) or the [Ruby sample](https://github.com/swisscom/sample-uaa-ruby-service-provider). We will refer to the URL under which this resource server is running as `<resource server URL>`.
 
 ### Clone the repo
 
@@ -46,7 +46,7 @@ CREDENTIALS='{"logoutEndpoint": "<uaa-url>/logout.do", "userInfoEndpoint": "<uaa
 cf create-user-provided-service oauth2 -p $CREDENTIALS -t oauth2
 ```
 
-### Build the react app
+### Build the Angular app
 
 Run the productive build for the Angular app.
 
